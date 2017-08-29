@@ -68,23 +68,29 @@ function initMap() {
   var marker = new google.maps.Marker({
     map: map,
     draggable: true,
-    //Question: position from location???
+    //Question: position from location using google,map.LatLng(location lat and lng cordinated)
     title: 'Hello Marker!!'
   });
-
-  // Question:  where to put this event listener:
-  //google.maps.event.addListener(marker, 'click', toggleBounce);
+  marker.setMap(map);
+  //marker.addListener('click', toggleBounce);
 
   vm.locations().marker = marker;
 
   // open info window on click
+  var contentString = 'Hello World!';
+  var infowindow = new google.maps.InfoWindow({
+  	content: contentString
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+  	infowindow.open(map,marker);
+  });
 
 }
 
 var ViewModel = function() {
 
   var self = this;
-  //this.something = ko.observable("");
   
   this.locations = ko.observableArray(locations);
   
@@ -101,9 +107,19 @@ var ViewModel = function() {
   // http://knockoutjs.com/documentation/click-binding.html
 
   // use a ko computed for filtering?
-  this.whatEver = ko.computed(function() {
-    console.log(self.locations());
-  });
+  //this.whatEver = ko.computed(function() {
+  //  console.log(self.locations());
+  //});
+  
+  /*this.showMarker = ko.computed(function() {
+    if (location.visible === true) {
+    	this.marker.setMap(map);
+    } else {
+    	this.marker.setMap(null);
+    }
+    return true;
+  }, this);*/
+
 };
 
 var vm = new ViewModel();
