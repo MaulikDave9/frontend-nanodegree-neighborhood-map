@@ -1,8 +1,4 @@
-// first goal: display a list with location names using Knockout.js (add the map later)
-// hard coded Array of location objects
-// https://github.com/udacity/ud864/blob/master/Project_Code_5_BeingStylish.html#L150
-// initMap function (later)
-// https://developers.google.com/maps/documentation/javascript/examples/map-simple
+
 // Restaurants constructor similiar to the Cat constructor form the JavaScript Design Patterns course (optional)
 // ViewModel constructor
 // http://knockoutjs.com/documentation/observables.html#mvvm-and-view-models
@@ -19,6 +15,7 @@
 // Apply the bindings aka activate KO
 // http://knockoutjs.com/documentation/observables.html#mvvm-and-view-models#activating-knockout
 
+// Five Indian restaurants as starter
 var locations = [{
     title: 'Namaste Indian Restaurant',
     location: {
@@ -47,10 +44,18 @@ var locations = [{
       lng: -78.8174586
     }
   },
+  {
+    title: 'Spices of India',
+    location: {
+      lat: 42.9766988,
+      lng: -78.810341
+    }
+  },
 ];
 
 
 function initMap() {
+
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: 42.886448,
@@ -59,9 +64,18 @@ function initMap() {
     zoom: 10,
   });
 
-  // create map markers
-  // add the map markers to the location objects
-  // vm.locations().marker = marker
+  // create map markers and add the map markers to the location objects
+  var marker = new google.maps.Marker({
+    map: map,
+    draggable: true,
+    //Question: position from location???
+    title: 'Hello Marker!!'
+  });
+
+  // Question:  where to put this event listener:
+  //google.maps.event.addListener(marker, 'click', toggleBounce);
+
+  vm.locations().marker = marker;
 
   // open info window on click
 
@@ -70,10 +84,16 @@ function initMap() {
 var ViewModel = function() {
 
   var self = this;
-  this.something = ko.observable("");
+  //this.something = ko.observable("");
+  
   this.locations = ko.observableArray(locations);
+  
   this.locations().forEach(function(location) {
     location.visible = ko.observable(true);
+
+    // Question:  How to assgign lat, lng for each location?
+    //self.Lat = ko.observable(locations.location.lat);
+    //self.Lng = ko.observable(locations.location.lng);
   });
 
   // a click on a list view item activates the corresponing map marker
@@ -82,7 +102,7 @@ var ViewModel = function() {
 
   // use a ko computed for filtering?
   this.whatEver = ko.computed(function() {
-    console.log(self.something());
+    console.log(self.locations());
   });
 };
 
