@@ -21,35 +21,40 @@ var locations = [{
     location: {
       lat: 43.0012553,
       lng: -78.7424039
-    }
+    },
+    url: 'namastebuffalo.com'
   },
   {
     title: 'Taj Grill',
     location: {
       lat: 42.9461422,
       lng: -78.8710662
-    }
+    },
+    url: 'namastebuffalo.com'
   },
   {
     title: 'Dosa Place',
     location: {
       lat: 42.9596609,
       lng: -78.8207925
-    }
+    },
+    url: 'namastebuffalo.com'
   },
   {
     title: 'Taste of India',
     location: {
       lat: 42.9810856,
       lng: -78.8174586
-    }
+    },
+    url: 'namastebuffalo.com'
   },
   {
     title: 'Spices of India',
     location: {
       lat: 42.9766988,
       lng: -78.810341
-    }
+    },
+    url: 'namastebuffalo.com'
   },
 ];
 
