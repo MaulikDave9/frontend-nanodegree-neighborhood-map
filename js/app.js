@@ -1,20 +1,4 @@
 
-// Restaurants constructor similiar to the Cat constructor form the JavaScript Design Patterns course (optional)
-// ViewModel constructor
-// http://knockoutjs.com/documentation/observables.html#mvvm-and-view-models
-// In the ViewModel create an observableArray with restaurant objects
-// this.restaurants = ko.observableArray(restaurants); // if you do not want to use a Restaurant constructor
-// Separating Out the Model video lesson:
-// https://classroom.udacity.com/nanodegrees/nd001/parts/e87c34bf-a9c0-415f-b007-c2c2d7eead73/modules/271165859175461/lessons/3406489055/concepts/34284402380923
-// Adding More Cats video lesson
-// https://classroom.udacity.com/nanodegrees/nd001/parts/e87c34bf-a9c0-415f-b007-c2c2d7eead73/modules/271165859175461/lessons/3406489055/concepts/34648186930923
-// Instantiate the ViewModel
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new
-// The difference between defining the ViewModel as a function expression or defining the viewModel as an object literal:
-// https://discussions.udacity.com/t/text-not-updating-with-search-box/182886/6
-// Apply the bindings aka activate KO
-// http://knockoutjs.com/documentation/observables.html#mvvm-and-view-models#activating-knockout
-
 // Five Indian restaurants as starter
 var locations = [{
     title: 'Namaste Indian Restaurant',
@@ -70,25 +54,27 @@ function initMap() {
   });
 
   // create map markers and add the map markers to the location objects
-  var marker = new google.maps.Marker({
-    map: map,
-    draggable: true,
-    //Question: position from location using google,map.LatLng(location lat and lng cordinated)
-    title: 'Hello Marker!!'
-  });
-  marker.setMap(map);
-  //marker.addListener('click', toggleBounce);
+  locations.forEach(function(location, index) { // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+    var marker = new google.maps.Marker({
+      map:      map,
+      position: location.location,
+      title:    location.title
+    });
+  
 
-  vm.locations().marker = marker;
+    vm.locations()[index].marker = marker;
 
-  // open info window on click
-  var contentString = 'Hello World!';
-  var infowindow = new google.maps.InfoWindow({
-  	content: contentString
-  });
+    // open info window on click
+    var contentString = location.title;
+    var infowindow = new google.maps.InfoWindow({
+    	content: contentString
+    });
 
-  google.maps.event.addListener(marker, 'click', function() {
-  	infowindow.open(map,marker);
+    google.maps.event.addListener(marker, 'click', function() {
+      // InfoWindow setContent() method
+    	infowindow.open(map,marker);
+    });
+
   });
 
 }
@@ -101,29 +87,27 @@ var ViewModel = function() {
   
   this.locations().forEach(function(location) {
     location.visible = ko.observable(true);
-
-    // Question:  How to assgign lat, lng for each location?
-    //self.Lat = ko.observable(locations.location.lat);
-    //self.Lng = ko.observable(locations.location.lng);
   });
 
   // a click on a list view item activates the corresponing map marker
-  // ko click binding
-  // http://knockoutjs.com/documentation/click-binding.html
+  // http://knockoutjs.com/documentation/click-binding.html#note-1-passing-a-current-item-as-a-parameter-to-your-handler-function
+  this.somethingHappens = function(item) {  // click binding's callback function
+    //console.log("click")
+    console.log(item); // item.marker
+  }
+
+  // add an observable for the textInput binding
 
   // use a ko computed for filtering?
   //this.whatEver = ko.computed(function() {
-  //  console.log(self.locations());
+    //  console.log(self.locations());
+    // watch the textInput bindings query observable for changes
+    // iterte over the selt.locations observableArray
+    // and set the visible observable of all matching locations to true
+    // and of not matching locations to false
+    // http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
+    // https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
   //});
-  
-  /*this.showMarker = ko.computed(function() {
-    if (location.visible === true) {
-    	this.marker.setMap(map);
-    } else {
-    	this.marker.setMap(null);
-    }
-    return true;
-  }, this);*/
 
 };
 
