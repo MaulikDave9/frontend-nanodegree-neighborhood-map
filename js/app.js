@@ -6,7 +6,7 @@ var locations = [{
       lat: 43.0012553,
       lng: -78.7424039
     },
-    url: 'namastebuffalo.com'
+    url: 'http://www.namastebuffalo.com'
   },
   {
     title: 'Taj Grill',
