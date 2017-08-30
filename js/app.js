@@ -56,9 +56,10 @@ function initMap() {
   // create map markers and add the map markers to the location objects
   locations.forEach(function(location, index) { // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
     var marker = new google.maps.Marker({
-      map:      map,
-      position: location.location,
-      title:    location.title
+      map:       map,
+      animation: google.maps.Animation.DROP,
+      position:  location.location,
+      title:     location.title
     });
   
 

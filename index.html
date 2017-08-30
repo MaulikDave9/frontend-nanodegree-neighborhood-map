@@ -17,22 +17,26 @@
 
 </head>
 <body>
-
-  <!-- textInput binding-->
-  <!-- http://knockoutjs.com/documentation/textinput-binding.html -->
-    
-  <ul data-bind="foreach: locations">
-    <!-- http://knockoutjs.com/documentation/click-binding.html -->
-    <!-- http://knockoutjs.com/documentation/binding-context.html -->
-    <li data-bind="text: title, click: $root.somethingHappens, visible: visible"></li>
-  </ul>  
-
-  <h3>Buffalo, New York </h3>
-  <div id="map"></div>
+   <div class="container">
+      <div class="options-box">
+        <!-- textInput binding -->
+        <!-- http://knockoutjs.com/documentation/textinput-binding.html -->
+        <h3> Buffalo Neighborhood </h3>
+        <div>
+          <span class="text">Indian Restaurants (Buffalo, New York) </span>
+          <input id="places-search" type="text" placeholder="Ex: Indian Restaurants in Buffalo, New York">
+          <input id="go-places" type="button" value="Go">
+        </div>
+        <ul data-bind="foreach: locations">
+          <!-- http://knockoutjs.com/documentation/click-binding.html -->
+          <!-- http://knockoutjs.com/documentation/binding-context.html -->
+          <li data-bind="text: title, click: $root.somethingHappens, visible: visible"></li>
+        </ul>      
+      </div>
+      <div id="map"></div>
+    </div>
 
   <script src="js/app.js"></script>
-
-
   <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO2Ae0_6-qmEBdy9o2lz0mdMsB45tf5vY&callback=initMap">
   </script> 
