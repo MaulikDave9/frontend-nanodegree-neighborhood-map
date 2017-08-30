@@ -14,7 +14,7 @@ var locations = [{
       lat: 42.9461422,
       lng: -78.8710662
     },
-    url: 'namastebuffalo.com'
+    url: 'http://www.tajgrillwny.com/'
   },
   {
     title: 'Dosa Place',
@@ -22,7 +22,7 @@ var locations = [{
       lat: 42.9596609,
       lng: -78.8207925
     },
-    url: 'namastebuffalo.com'
+    url: 'https://www.dosaplaceny.com/'
   },
   {
     title: 'Taste of India',
@@ -30,7 +30,7 @@ var locations = [{
       lat: 42.9810856,
       lng: -78.8174586
     },
-    url: 'namastebuffalo.com'
+    url: 'http://www.tasteofindia.com/'
   },
   {
     title: 'Spices of India',
@@ -38,7 +38,7 @@ var locations = [{
       lat: 42.9766988,
       lng: -78.810341
     },
-    url: 'namastebuffalo.com'
+    url: 'http://www.spicesofindiawny.com/'
   },
 ];
 
