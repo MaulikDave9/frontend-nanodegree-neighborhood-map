@@ -6,7 +6,8 @@ var locations = [{
       lat: 43.0012553,
       lng: -78.7424039
     },
-    url: 'http://www.namastebuffalo.com'
+    url: 'http://www.namastebuffalo.com',
+    address: '224 Plaza Dr, Buffalo, NY 14221'
   },
   {
     title: 'Taj Grill',
@@ -14,7 +15,8 @@ var locations = [{
       lat: 42.9461422,
       lng: -78.8710662
     },
-    url: 'http://www.tajgrillwny.com/'
+    url: 'http://www.tajgrillwny.com/',
+    address: '2290 Delaware Ave, Buffalo, NY 14216'
   },
   {
     title: 'Dosa Place',
@@ -22,7 +24,8 @@ var locations = [{
       lat: 42.9596609,
       lng: -78.8207925
     },
-    url: 'https://www.dosaplaceny.com/'
+    url: 'https://www.dosaplaceny.com/',
+    address: '3500 Main St, Buffalo, NY 14226'
   },
   {
     title: 'Taste of India',
@@ -30,7 +33,8 @@ var locations = [{
       lat: 42.9810856,
       lng: -78.8174586
     },
-    url: 'http://www.tasteofindia.com/'
+    url: 'http://www.tasteofindia.com/',
+    address: '3192 Sheridan Dr, Buffalo, NY 14226'
   },
   {
     title: 'Spices of India',
@@ -38,7 +42,8 @@ var locations = [{
       lat: 42.9766988,
       lng: -78.810341
     },
-    url: 'http://www.spicesofindiawny.com/'
+    url: 'http://www.spicesofindiawny.com/',
+    address: '438 Evans St, Williamsville, NY 14221'
   },
 ];
 
@@ -63,7 +68,7 @@ function initMap() {
     });
   
 
-    vm.locations()[index].marker = marker;
+    //vm.locations()[index].marker = marker;
 
     // open info window on click
     var contentString = location.title;

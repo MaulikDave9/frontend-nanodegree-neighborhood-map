@@ -19,13 +19,12 @@
 <body>
    <div class="container">
       <div class="options-box">
-        <!-- textInput binding -->
-        <!-- http://knockoutjs.com/documentation/textinput-binding.html -->
         <h3> Buffalo Neighborhood </h3>
         <div>
           <span class="text">Indian Restaurants (Buffalo, New York) </span>
-          <input id="places-search" type="text" placeholder="Ex: Indian Restaurants in Buffalo, New York">
-          <input id="go-places" type="button" value="Go">
+          <input id="places-search" type="text" data-bind="textInput: location.title" />
+          <!-- <input id="places-search" type="text" placeholder="Ex: Indian Restaurants in Buffalo, New York"> -->
+          <input id="go-places" type="button" value="Filter">
         </div>
         <ul data-bind="foreach: locations">
           <!-- http://knockoutjs.com/documentation/click-binding.html -->

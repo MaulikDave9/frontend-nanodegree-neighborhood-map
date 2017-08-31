@@ -26,11 +26,7 @@ input {
 }
 
 #places-search {
-    width: 84%;
-}
-
-#hide-listings {
-    width: 48%;
+    width: 80%;
 }
 
 /* Always set the map height explicitly to define the size of the div
