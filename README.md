@@ -1,4 +1,5 @@
-##  Neighborhood Map Project (single page app showing Indian Restaurants around Buffalo, New York) ##
+##  Neighborhood Map Project  ##
+This is single-page application showing Indian Restaurants around Buffalo, New York.
 
 ### Link: https://maulikdave9.github.io/frontend-nanodegree-neighborhood-map/ ###
 
