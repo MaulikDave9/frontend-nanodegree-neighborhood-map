@@ -17,17 +17,16 @@
         <h3> Buffalo Neighborhood </h3>
         <div>
           <span class="text">Indian Restaurants </span>
-          <input id="places-search" type="text" data-bind="textInput: location.title" placeholder="Search..." /> 
+          <input id="places-search" type="input" data-bind="textInput: selectedLoc" placeholder="Search...", valueUpdate: "afterkeydown" /> 
+          <ul data-bind="foreach: locations">
+            <!-- http://knockoutjs.com/documentation/click-binding.html -->
+            <!-- http://knockoutjs.com/documentation/binding-context.html -->
+            <li data-bind="text: title, click: $root.clickMarker, visible: visible"></li>
+          </ul>
         </div>
-        <ul data-bind="foreach: locations">
-          <!-- http://knockoutjs.com/documentation/click-binding.html -->
-          <!-- http://knockoutjs.com/documentation/binding-context.html -->
-          <li data-bind="text: title, click: $root.somethingHappens, visible: visible"></li>
-        </ul>
       </div>
       <div id="map"></div>
     </div>
-
   <script src="js/app.js"></script>
   <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO2Ae0_6-qmEBdy9o2lz0mdMsB45tf5vY&callback=initMap">
