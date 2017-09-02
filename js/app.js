@@ -70,6 +70,7 @@ function initMap() {
   // create map markers and add the map markers to the location objects
   // Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
   locations.forEach(function(location, index) { 
+
     var marker = new google.maps.Marker({
       map:       map,
       animation: google.maps.Animation.DROP,
@@ -77,9 +78,6 @@ function initMap() {
       title:     location.title
     });
   
-
-    //Question???: Redundant? "vm.locations()[index].marker = marker;"
-
     // open info window on click
     var contentString = 
         '<div class="content> <div class="title">'    + location.title + "</div>" +
@@ -106,17 +104,13 @@ var ViewModel = function() {
   
   // Initially display all the locations (default)
   this.locations = ko.observableArray(locations);
-
-  // Make an array of Locations for search result comparision
-  this.locationList = ko.observableArray([])
   this.locations().forEach(function(location) {
     location.visible = ko.observable(true);
-    self.locationList.push(location.title)  
-
   });
 
-  // observable for the textInput binding
-  this.selectedLoc = ko.observable(' '); // blank by default
+  // Search, match and filter 
+  //observable for the textInput binding
+  this.selectedLoc = ko.observable(''); // blank by default
 
   // Watch the textInput bindings query observable for changes
   // Iterte over the self.locations observableArray and set the visible observable of all matching locations to true
@@ -125,23 +119,23 @@ var ViewModel = function() {
   // Reference: https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
 
   // Question???:  How to fix this!
-  /*this.firstMatch = ko.computed( function() {
+  this.firstMatch = ko.computed( function() {
       
     var search = self.selectedLoc().toLowerCase();
 
     if (!search) {
-        self.locationList().forEach(function(location) {
-        location.visible = ko.observable(true);
-      });
-      return null;
+        self.locations().forEach(function(location) { 
+          location.visible = ko.observable(true);
+        });
+        return null;
     } else {
-        return ko.utils.arrayFilter(self.locationList(), function(location) {
+        return ko.utils.arrayFilter(self.locations(), function(location) {
           var result = ko.utils.stringStartsWith(location.title().toLowerCase(), search);
           location.visible = ko.observable(result);
           return result;
         });
     }
-  }, self);*/
+  }, self);
 
   // a click on a list view item activates the corresponing map marker
   // Reference: http://knockoutjs.com/documentation/click-binding.html#note-1-passing-a-current-item-as-a-parameter-to-your-handler-function
