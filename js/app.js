@@ -127,12 +127,10 @@ var ViewModel = function() {
         self.locations().forEach(function(location) { 
           location.visible = ko.observable(true);
         });
-        return null;
     } else {
         return ko.utils.arrayFilter(self.locations(), function(location) {
           var result = ko.utils.stringStartsWith(location.title().toLowerCase(), search);
           location.visible = ko.observable(result);
-          return result;
         });
     }
   }, self);
