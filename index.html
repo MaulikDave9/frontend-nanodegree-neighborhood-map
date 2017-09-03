@@ -20,10 +20,11 @@
         <div>
           <span class="text">Indian Restaurants </span>
           <input id="places-search" type="input" data-bind="textInput: selectedLoc" placeholder="Search...", valueUpdate: "afterkeydown" /> 
-          <ul data-bind="foreach: locations">
+          <ul data-bind="foreach: firstMatch">
             <li data-bind="text: title, click: $root.clickMarker, visible: visible"></li>
           </ul>
         </div>
+        <div data-bind="html: thirdPartyAPIInfo"></div>
       </div>
       <div id="map"></div>
     </div>

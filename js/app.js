@@ -1,4 +1,3 @@
-
 // Five Indian restaurants Locations in Buffalo, New York area. 
 var locations = [{
     title: 'Namaste Indian Restaurant',
@@ -77,6 +76,8 @@ function initMap() {
       position:  location.location,
       title:     location.title
     });
+
+    vm.locations()[index].marker = marker;
   
     // open info window on click
     var contentString = 
@@ -86,7 +87,7 @@ function initMap() {
         '<div class="url"> <a href="'                 + location.url + '">' + location.url + "</a></div></div>";
        
     var infowindow = new google.maps.InfoWindow({
-    	content: contentString 
+      content: contentString 
     });
     google.maps.event.addListener(marker, 'click', function() {
       infowindow.open(map,marker);
@@ -101,6 +102,9 @@ function initMap() {
 var ViewModel = function() {
 
   var self = this;
+
+
+  this.thirdPartyAPIInfo = ko.observable('<p>third party API info</p>');
   
   // Initially display all the locations (default)
   this.locations = ko.observableArray(locations);
@@ -124,13 +128,20 @@ var ViewModel = function() {
     var search = self.selectedLoc().toLowerCase();
 
     if (!search) {
-        self.locations().forEach(function(location) { 
-          location.visible = ko.observable(true);
-        });
+      return self.locations();
     } else {
         return ko.utils.arrayFilter(self.locations(), function(location) {
-          var result = ko.utils.stringStartsWith(location.title().toLowerCase(), search);
-          location.visible = ko.observable(result);
+          //console.log(location)
+          var title = location.title.toLowerCase();
+          var result = title.indexOf(search) != -1; // 'Blue Whale'.indexOf('Blue') != -1 -> true
+          //location.visible(result);
+          console.log(title, search, result);
+
+          // show or hide markers here using the Marker setVisible method
+          // the load and execution order matters
+          // check if the location object has a marker property before calling the Marker setVisible method on the marker object
+
+          return result; // true or false
         });
     }
   }, self);
@@ -139,6 +150,7 @@ var ViewModel = function() {
   // Reference: http://knockoutjs.com/documentation/click-binding.html#note-1-passing-a-current-item-as-a-parameter-to-your-handler-function
   this.clickMarker = function(item) {  // click binding's callback function
     console.log(item.url); // item.marker
+    console.log(item.marker);
   }
 };
 
