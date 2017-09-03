@@ -77,6 +77,7 @@ function initMap() {
       title:     location.title
     });
 
+    // Add marker property to location objects, used when filter/search.
     vm.locations()[index].marker = marker;
   
     // open info window on click
@@ -120,9 +121,7 @@ var ViewModel = function() {
   // Iterte over the self.locations observableArray and set the visible observable of all matching locations to true
   // and of not matching locations to false.
   // Reference: http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
-  // Reference: https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
 
-  // Question???:  How to fix this!
   this.firstMatch = ko.computed( function() {
       
     var search = self.selectedLoc().toLowerCase();
@@ -134,10 +133,9 @@ var ViewModel = function() {
           //console.log(location)
           var title = location.title.toLowerCase();
           var result = title.indexOf(search) != -1; // 'Blue Whale'.indexOf('Blue') != -1 -> true
-          //location.visible(result);
-          console.log(title, search, result);
 
-          // show or hide markers here using the Marker setVisible method
+          location.marker.setVisible(result); // show or hide markers result is true or false.   
+          console.log(location.title, location.marker.getVisible());
           // the load and execution order matters
           // check if the location object has a marker property before calling the Marker setVisible method on the marker object
 
@@ -148,16 +146,15 @@ var ViewModel = function() {
 
   // a click on a list view item activates the corresponing map marker
   // Reference: http://knockoutjs.com/documentation/click-binding.html#note-1-passing-a-current-item-as-a-parameter-to-your-handler-function
-  this.clickMarker = function(item) {  // click binding's callback function
-    console.log(item.url); // item.marker
-    console.log(item.marker);
+  this.clickMarker = function(location) {  // click binding's callback function
+    console.log(location.marker); 
+
+    google.maps.event.addListener(location.marker, 'click', function() {
+      infowindow.open(map,location.markermarker);
+    });
+
   }
 };
-
-// Error handling if map doesn't load.
-function errorHandlingMap() {
-    $('#map').html('We had trouble loading Google Maps. Please refresh your browser and try again.');
-}
 
 var vm = new ViewModel();
 ko.applyBindings(vm);
