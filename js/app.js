@@ -96,11 +96,11 @@ function initMap() {
     // open info window on click
     var contentString = makeContentString(location);
        
-    var infowindow = new google.maps.InfoWindow({
+    var infoWindow = new google.maps.InfoWindow({
       content: contentString 
     });
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map,marker);
+      infoWindow.open(map,marker);
     });
 
   });
@@ -147,6 +147,8 @@ var ViewModel = function() {
           //console.log(location.title, location.marker.getVisible());
           // the load and execution order matters
           // check if the location object has a marker property before calling the Marker setVisible method on the marker object
+          
+          // Question: How to close all infoWindow() ???
 
           return result; // true or false
         });
@@ -159,11 +161,10 @@ var ViewModel = function() {
 
     //console.log(location.marker); 
     var contentString = makeContentString(location);
-       
-    var infowindow = new google.maps.InfoWindow({
+    var infoWindow = new google.maps.InfoWindow({
       content: contentString 
     });
-    infowindow.open(map,location.marker);
+    infoWindow.open(map,location.marker);
 
   }
 };
