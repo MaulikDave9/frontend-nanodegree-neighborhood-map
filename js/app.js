@@ -51,6 +51,19 @@ var locations = [{
   },
 ];
 
+/* global variable to use in initMap() and clickMarker() functions.
+*/
+function makeContentString(location) {
+
+  var contentString = 
+        '<div class="content> <div class="title">'    + location.title + "</div>" +
+        '<div class="address">'                       + location.address + "</div>" +
+        '<div class="phone">'                         + location.phone + "</div>" +
+        '<div class="url"> <a href="'                 + location.url + '">' + location.url + "</a></div></div>";  
+
+  return contentString;
+}
+
 var map; //map as global variable
 /******************************************************************************************
  Google Map API, initialize map with center around Buffalo, New York, and place markers for 
@@ -81,11 +94,7 @@ function initMap() {
     vm.locations()[index].marker = marker;
   
     // open info window on click
-    var contentString = 
-        '<div class="content> <div class="title">'    + location.title + "</div>" +
-        '<div class="address">'                       + location.address + "</div>" +
-        '<div class="phone">'                         + location.phone + "</div>" +
-        '<div class="url"> <a href="'                 + location.url + '">' + location.url + "</a></div></div>";
+    var contentString = makeContentString(location);
        
     var infowindow = new google.maps.InfoWindow({
       content: contentString 
@@ -135,7 +144,7 @@ var ViewModel = function() {
           var result = title.indexOf(search) != -1; // 'Blue Whale'.indexOf('Blue') != -1 -> true
 
           location.marker.setVisible(result); // show or hide markers result is true or false.   
-          console.log(location.title, location.marker.getVisible());
+          //console.log(location.title, location.marker.getVisible());
           // the load and execution order matters
           // check if the location object has a marker property before calling the Marker setVisible method on the marker object
 
@@ -147,11 +156,14 @@ var ViewModel = function() {
   // a click on a list view item activates the corresponing map marker
   // Reference: http://knockoutjs.com/documentation/click-binding.html#note-1-passing-a-current-item-as-a-parameter-to-your-handler-function
   this.clickMarker = function(location) {  // click binding's callback function
-    console.log(location.marker); 
 
-    google.maps.event.addListener(location.marker, 'click', function() {
-      infowindow.open(map,location.markermarker);
+    //console.log(location.marker); 
+    var contentString = makeContentString(location);
+       
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString 
     });
+    infowindow.open(map,location.marker);
 
   }
 };
