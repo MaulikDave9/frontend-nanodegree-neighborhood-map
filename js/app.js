@@ -90,7 +90,7 @@ function initMap() {
       title:     location.title
     });
 
-    // Add marker property to location objects, used when filter/search.
+    // Add marker property to location objects, used when search/filter.
     vm.locations()[index].marker = marker;
   
     // open info window on click
@@ -102,6 +102,9 @@ function initMap() {
     google.maps.event.addListener(marker, 'click', function() {
       infoWindow.open(map,marker);
     });
+
+    // Add infoWindow property to location objects, used when search/filter.
+    vm.locations()[index].infoWindow = infoWindow;
 
   });
 }
@@ -143,12 +146,14 @@ var ViewModel = function() {
           var title = location.title.toLowerCase();
           var result = title.indexOf(search) != -1; // 'Blue Whale'.indexOf('Blue') != -1 -> true
 
-          location.marker.setVisible(result); // show or hide markers result is true or false.   
-          //console.log(location.title, location.marker.getVisible());
           // the load and execution order matters
           // check if the location object has a marker property before calling the Marker setVisible method on the marker object
+          location.marker.setVisible(result); // show or hide markers result is true or false.   
+          //TODO: Bug or feature that after filter removed has to refresh to function correctly?
+          //console.log(location.title, location.marker.getVisible());
           
-          // Question: How to close all infoWindow() ???
+          // TOTO: How to close all infoWindow() ???
+          location.infoWindow.close();
 
           return result; // true or false
         });
