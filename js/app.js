@@ -62,13 +62,13 @@ function makeContentString(location) {
         '<div class="url"> <a href="'                 + location.url + '">' + location.url + "</a></div></div>";  
 
   return contentString;
+
 }
 
 /* Clear infoWindowes.
 */
 function clearInfoWins() {
 
-  // Question?? works in console: vm.locations()[2].infoWindow.close()
   vm.locations().forEach(function(location) { 
     location.infoWindow.close() 
   });
@@ -118,8 +118,8 @@ function initMap() {
 
     // Add infoWindow property to location objects, used when search/filter.
     vm.locations()[index].infoWindow = infoWindow;
-
   });
+
 }
 
 /******************************************************************************************
@@ -138,8 +138,7 @@ var ViewModel = function() {
     location.visible = ko.observable(true);
   });
 
-  // Search, match and filter 
-  //observable for the textInput binding
+  // Search, match and filter. Observable for the textInput binding
   this.selectedLoc = ko.observable(''); // blank by default
 
   // Watch the textInput bindings query observable for changes
@@ -152,6 +151,11 @@ var ViewModel = function() {
     var search = self.selectedLoc().toLowerCase();
 
     if (!search) {
+        self.locations().forEach(function(location) {
+          if (location.marker) {
+            location.marker.setVisible(true);
+          }
+        });
       return self.locations();
     } else {
         return ko.utils.arrayFilter(self.locations(), function(location) {
@@ -159,14 +163,8 @@ var ViewModel = function() {
           var title = location.title.toLowerCase();
           var result = title.indexOf(search) != -1; // 'Blue Whale'.indexOf('Blue') != -1 -> true
 
-          // the load and execution order matters
-          // check if the location object has a marker property before calling the Marker setVisible method on the marker object
           location.marker.setVisible(result); // show or hide markers result is true or false.   
-          //TODO: Bug or feature that after filter removed has to refresh to function correctly?
-          //console.log(location.title, location.marker.getVisible());
-          
-          // TOTO: How to close all infoWindow(), following doesn't work!
-          clearInfoWins();
+          clearInfoWins(); // Close all open Info Windows.
 
           return result; // true or false
         });
@@ -179,12 +177,8 @@ var ViewModel = function() {
 
     //console.log(location.marker); 
     var contentString = makeContentString(location);
-    var infoWindow = new google.maps.InfoWindow({
-      content: contentString,
-      maxWidth: 200
-    });
     location.marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png'); // green vs. blue marker color change, list click vs. map click
-    infoWindow.open(map,location.marker);
+    location.infoWindow.open(map,location.marker);
 
   }
 };
