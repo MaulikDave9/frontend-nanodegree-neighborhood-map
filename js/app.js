@@ -189,5 +189,11 @@ var ViewModel = function() {
   }
 };
 
+
+// In case there is Google Map API Error
+function googleMapApiErrorMessage() {
+  $('body').prepend('<p> Google Map API Error, please check API keys and try again. </p>');
+}
+
 var vm = new ViewModel();
 ko.applyBindings(vm);
