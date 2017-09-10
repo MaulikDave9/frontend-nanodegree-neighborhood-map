@@ -75,6 +75,22 @@ function clearInfoWins() {
 
 }
 
+/* foursquare Request
+*/
+function getFourSquare(location) {
+
+  // Foursquare API Client
+  clientID     = "DMP2OCOYCY0E0PEOPDIKR5IBPIZQ0VG1D5E04Q3FNVAZORX3";
+  clientSecret = "JGBRNC0H2OUXKGCXCJOZATGHXZHZGAYYIWSKOMT5WKGQDR4R";
+            
+  // URL for Foursquare API
+  var apiUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + location.lat + ',' + location.lng + '&client_id=' + clientID + 
+               '&client_secret=' + clientSecret + '&query=' + location.title +
+               '&v=2017008' + '&m=foursquare';
+
+
+}
+
 var map; //map as global variable
 /******************************************************************************************
  Google Map API, initialize map with center around Buffalo, New York, and place markers for 
