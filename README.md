@@ -13,3 +13,4 @@ Subsequently, searching for any of these restaurants(only from that list), will 
 4. https://opensoul.org/2011/06/23/live-search-with-knockoutjs/
 5. http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
 6. https://stackoverflow.com/questions/11064081/javascript-change-google-map-marker-color
+7. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
