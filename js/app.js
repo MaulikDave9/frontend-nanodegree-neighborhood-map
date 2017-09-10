@@ -64,6 +64,17 @@ function makeContentString(location) {
   return contentString;
 }
 
+/* Clear infoWindowes.
+*/
+function clearInfoWins() {
+
+  // Question?? works in console: vm.locations()[2].infoWindow.close()
+  vm.locations().forEach(function(location) { 
+    location.infoWindow.close() 
+  });
+
+}
+
 var map; //map as global variable
 /******************************************************************************************
  Google Map API, initialize map with center around Buffalo, New York, and place markers for 
@@ -97,9 +108,11 @@ function initMap() {
     var contentString = makeContentString(location);
        
     var infoWindow = new google.maps.InfoWindow({
-      content: contentString 
+      content: contentString,
+      maxWidth: 200
     });
     google.maps.event.addListener(marker, 'click', function() {
+      marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
       infoWindow.open(map,marker);
     });
 
@@ -152,8 +165,8 @@ var ViewModel = function() {
           //TODO: Bug or feature that after filter removed has to refresh to function correctly?
           //console.log(location.title, location.marker.getVisible());
           
-          // TOTO: How to close all infoWindow() ???
-          location.infoWindow.close();
+          // TOTO: How to close all infoWindow(), following doesn't work!
+          clearInfoWins();
 
           return result; // true or false
         });
@@ -167,8 +180,10 @@ var ViewModel = function() {
     //console.log(location.marker); 
     var contentString = makeContentString(location);
     var infoWindow = new google.maps.InfoWindow({
-      content: contentString 
+      content: contentString,
+      maxWidth: 200
     });
+    location.marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png'); // green vs. blue marker color change, list click vs. map click
     infoWindow.open(map,location.marker);
 
   }
