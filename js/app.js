@@ -79,14 +79,28 @@ function clearInfoWins() {
 */
 function getFourSquare(location) {
 
-  // Foursquare API Client
+  // For authentication
   clientID     = "DMP2OCOYCY0E0PEOPDIKR5IBPIZQ0VG1D5E04Q3FNVAZORX3";
   clientSecret = "JGBRNC0H2OUXKGCXCJOZATGHXZHZGAYYIWSKOMT5WKGQDR4R";
             
   // URL for Foursquare API
-  var apiUrl = 'https://api.foursquare.com/v2/venues/search?ll=' + location.lat + ',' + location.lng + '&client_id=' + clientID + 
-               '&client_secret=' + clientSecret + '&query=' + location.title +
-               '&v=2017008' + '&m=foursquare';
+  var baseUrl = 'https://api.foursquare.com/v2/venues/search?ll=' +
+                location.location.lat + ',' + location.location.lng + '&client_id=' + clientID +
+                '&client_secret=' + clientSecret + '&query=' + location.title +
+                '&v=20120708' + '&m=foursquare';             
+
+  $.ajax({
+           url: baseUrl,
+           dataType: 'json',
+           data: {
+             
+           }
+         }).done(function(results) {
+            console.log(results);
+
+         }).fail(function(error) {
+            console.log(error);
+  });
 
 
 }
@@ -131,6 +145,9 @@ function initMap() {
       marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
       infoWindow.open(map,marker);
     });
+
+    //foursquare data
+    var fourSquareData = getFourSquare(location);
 
     // Add infoWindow property to location objects, used when search/filter.
     vm.locations()[index].infoWindow = infoWindow;
