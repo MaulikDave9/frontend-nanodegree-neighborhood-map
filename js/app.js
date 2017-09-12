@@ -51,9 +51,46 @@ var locations = [{
   },
 ];
 
+/* foursquare Request
+* Request to find the Venue IDs
+* {id: "556b96e9498e15ee82f66e35", name: "Dosa Place"
+* {id: "4fbfb007e4b089f18b582fe8", name: "Taj Grill"
+* {id: "4b68b9faf964a5206e892be3", name: "Taste of India"
+* {id: "57116d62498eb9387d5b261e", name: "Namaste Cuisine Of India"
+*/
+function getFourSquare(location) {
+
+  // For authentication
+  clientID     = "DMP2OCOYCY0E0PEOPDIKR5IBPIZQ0VG1D5E04Q3FNVAZORX3";
+  clientSecret = "JGBRNC0H2OUXKGCXCJOZATGHXZHZGAYYIWSKOMT5WKGQDR4R";
+            
+  var base_url = 'https://api.foursquare.com/v2/';
+  var endpoint = 'venues/search?';
+
+  var params = 'll='+ location.location.lat + ',' + location.location.lng; 
+  var key = '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + '20140626';
+  var url = base_url+endpoint+params+key;
+
+
+  $.get(url, function (result) {
+    $('#msg pre').text(JSON.stringify(result));
+    
+    var venues = result.response.venues;
+    //printVenues(venues); 
+    for (var i in venues){
+        var venue = venues[i];       
+    }
+    console.log(result);
+  });
+
+}
+
 /* global variable to use in initMap() and clickMarker() functions.
 */
 function makeContentString(location) {
+
+  //foursquare data
+  getFourSquare(location);
 
   var contentString = 
         '<div class="content> <div class="title">'    + location.title + "</div>" +
@@ -72,36 +109,6 @@ function clearInfoWins() {
   vm.locations().forEach(function(location) { 
     location.infoWindow.close() 
   });
-
-}
-
-/* foursquare Request
-*/
-function getFourSquare(location) {
-
-  // For authentication
-  clientID     = "DMP2OCOYCY0E0PEOPDIKR5IBPIZQ0VG1D5E04Q3FNVAZORX3";
-  clientSecret = "JGBRNC0H2OUXKGCXCJOZATGHXZHZGAYYIWSKOMT5WKGQDR4R";
-            
-  // URL for Foursquare API
-  var baseUrl = 'https://api.foursquare.com/v2/venues/search?ll=' +
-                location.location.lat + ',' + location.location.lng + '&client_id=' + clientID +
-                '&client_secret=' + clientSecret + '&query=' + location.title +
-                '&v=20120708' + '&m=foursquare';             
-
-  $.ajax({
-           url: baseUrl,
-           dataType: 'json',
-           data: {
-             
-           }
-         }).done(function(results) {
-            console.log(results);
-
-         }).fail(function(error) {
-            console.log(error);
-  });
-
 
 }
 
@@ -145,9 +152,6 @@ function initMap() {
       marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
       infoWindow.open(map,marker);
     });
-
-    //foursquare data
-    var fourSquareData = getFourSquare(location);
 
     // Add infoWindow property to location objects, used when search/filter.
     vm.locations()[index].infoWindow = infoWindow;
