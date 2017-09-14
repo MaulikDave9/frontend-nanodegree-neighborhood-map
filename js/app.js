@@ -66,21 +66,17 @@ function getFourSquare(location) {
             
   var base_url = 'https://api.foursquare.com/v2/';
   var endpoint = 'venues/search?';
-
   var params = 'll='+ location.location.lat + ',' + location.location.lng; 
-  var key = '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + '20140626';
-  var url = base_url+endpoint+params+key;
+  var key    = '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + '20140626';
 
+  var url    = base_url + endpoint + params + key;
 
   $.get(url, function (result) {
-    $('#msg pre').text(JSON.stringify(result));
-    
     var venues = result.response.venues;
-    //printVenues(venues); 
-    for (var i in venues){
-        var venue = venues[i];       
-    }
-    console.log(result);
+    var venue = venues[0];
+    var venueStr = '<div class = "foursquare"><strong>' + venue.name + '</strong></div>';  
+    console.log(venueStr);
+    return venueStr;
   });
 
 }
@@ -89,16 +85,18 @@ function getFourSquare(location) {
 */
 function makeContentString(location) {
 
-  //foursquare data
-  getFourSquare(location);
-
   var contentString = 
         '<div class="content> <div class="title">'    + location.title + "</div>" +
         '<div class="address">'                       + location.address + "</div>" +
         '<div class="phone">'                         + location.phone + "</div>" +
         '<div class="url"> <a href="'                 + location.url + '">' + location.url + "</a></div></div>";  
 
-  return contentString;
+  //foursquare data
+  venueStr = getFourSquare(location);
+  console.log(venueStr);
+
+   
+  return contentString + venueStr;
 
 }
 
