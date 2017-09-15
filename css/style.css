@@ -38,3 +38,21 @@ input {
     position: absolute;
     right:    0px;
 }
+
+
+#search-box {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    background-size: contain;
+}
+
+#dummy {
+    padding-top: 29%;
+}
+
+/* Smartphones (portrait) */
+@media only screen and (max-width: 480px) {
+  body { font-size: 12px;}
+  header p { padding-left: 4.5em;}
+}
