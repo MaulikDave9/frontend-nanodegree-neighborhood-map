@@ -7,7 +7,8 @@ var locations = [{
     },
     url:     'http://www.namastebuffalo.com',
     address: '224 Plaza Dr, Buffalo, NY 14221',
-    phone:   '(716) 636-0250'
+    phone:   '(716) 636-0250',
+    fsId:    '57116d62498eb9387d5b261e'
   },
   {
     title: 'Taj Grill',
@@ -17,7 +18,8 @@ var locations = [{
     },
     url:     'http://www.tajgrillwny.com/',
     address: '2290 Delaware Ave, Buffalo, NY 14216',
-    phone:   '(716) 875-1000'
+    phone:   '(716) 875-1000',
+    fsId:    '4fbfb007e4b089f18b582fe8'
   },
   {
     title: 'Dosa Place',
@@ -27,7 +29,8 @@ var locations = [{
     },
     url:     'https://www.dosaplaceny.com/',
     address: '3500 Main St, Buffalo, NY 14226',
-    phone:   '(716) 834-1400'
+    phone:   '(716) 834-1400',
+    fsId:    '556b96e9498e15ee82f66e35'
   },
   {
     title: 'Taste of India',
@@ -37,7 +40,8 @@ var locations = [{
     },
     url:     'http://www.tasteofindia.com/',
     address: '3192 Sheridan Dr, Buffalo, NY 14226',
-    phone:   '(716) 837-0460'
+    phone:   '(716) 837-0460',
+    fsId:    '4b68b9faf964a5206e892be3'
   },
   {
     title: 'Spices of India',
@@ -47,16 +51,14 @@ var locations = [{
     },
     url:     'http://www.spicesofindiawny.com/',
     address: '438 Evans St, Williamsville, NY 14221',
-    phone:   '(716) 633-4800'
+    phone:   '(716) 633-4800',
+    fsId:    '4ced486fb80da0930c052100'
   },
 ];
 
-/* foursquare Request
-* Request to find the Venue IDs
-* {id: "556b96e9498e15ee82f66e35", name: "Dosa Place"
-* {id: "4fbfb007e4b089f18b582fe8", name: "Taj Grill"
-* {id: "4b68b9faf964a5206e892be3", name: "Taste of India"
-* {id: "57116d62498eb9387d5b261e", name: "Namaste Cuisine Of India"
+var infoWindow; // global variable for infoWindow on Map Marker
+
+/* foursquare Request to get vanue information.
 */
 function getFourSquare(location) {
 
@@ -65,37 +67,34 @@ function getFourSquare(location) {
   clientSecret = "JGBRNC0H2OUXKGCXCJOZATGHXZHZGAYYIWSKOMT5WKGQDR4R";
             
   var base_url = 'https://api.foursquare.com/v2/';
-  var endpoint = 'venues/search?';
-  var params   = 'll='+ location.location.lat + ',' + location.location.lng; 
-  var key      = '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + '20140626';
-  var url      = base_url + endpoint + params + key;
+  var key    = '?client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + '20140626';
+  var urlVenueDetail = base_url+ 'venues/' + location.fsId + key;
 
-  // ??? this.venue = ko.observable('');
-  $.get(url, function (result) {
-    var venues = result.response.venues;
-    var venue = venues[0];
-    var venueStr = '<div class = "foursquare"><strong>' + venue.name + '</strong></div>';  
-    console.log(venueStr);
-    return venueStr;
+  $.get(urlVenueDetail, function (result) {
+
+    var canonicalUrl = result.response.venue.canonicalUrl;
+    console.log(canonicalUrl)
+    location.canonicalUrl = canonicalUrl;
   });
 
 }
 
-/* global variable to use in initMap() and clickMarker() functions.
+/* Venue information and Foursquare data for information window.
 */
 function makeContentString(location) {
+
+  console.log(location)
+  console.log(location.canonicalUrl)
 
   var contentString = 
         '<div class="content> <div class="title">'    + location.title + "</div>" +
         '<div class="address">'                       + location.address + "</div>" +
         '<div class="phone">'                         + location.phone + "</div>" +
-        '<div class="url"> <a href="'                 + location.url + '">' + location.url + "</a></div></div>";  
+        '<div class="url"> <a href="'                 + location.url + '">' + location.url + "</a></div></div>" +
 
-  //foursquare data
-  venueStr = getFourSquare(location);
-  console.log(venueStr);
+        '<p> FourSquare: <div class="fsUrl"> <a href="'           + location.canonicalUrl + '">' + location.canonicalUrl + "</a></div></p>";
 
-  return contentString + venueStr;
+  return contentString; 
 
 }
 
@@ -135,19 +134,21 @@ function initMap() {
       title:     location.title
     });
 
+    getFourSquare(location);
+
     // Add marker property to location objects, used when search/filter.
     vm.locations()[index].marker = marker;
   
-    // open info window on click
-    var contentString = makeContentString(location);
-       
-    var infoWindow = new google.maps.InfoWindow({
-      content: contentString,
-      maxWidth: 200
-    });
+    // open info window on click       
+    infoWindow = new google.maps.InfoWindow();
+
     google.maps.event.addListener(marker, 'click', function() {
+
       marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+      var contentString = makeContentString(location);
+      infoWindow.setContent(contentString);
       infoWindow.open(map,marker);
+    
     });
 
     // Add infoWindow property to location objects, used when search/filter.
@@ -162,10 +163,7 @@ function initMap() {
 var ViewModel = function() {
 
   var self = this;
-
-  // Question: ??? Does Four Square data comes here?
-  this.thirdPartyAPIInfo = ko.observable('<p>third party API info</p>');
-
+  
   // Initially display all the locations (default)
   this.locations = ko.observableArray(locations);
   this.locations().forEach(function(location) {
@@ -193,13 +191,10 @@ var ViewModel = function() {
       return self.locations();
     } else {
         return ko.utils.arrayFilter(self.locations(), function(location) {
-          //console.log(location)
           var title = location.title.toLowerCase();
           var result = title.indexOf(search) != -1; // 'Blue Whale'.indexOf('Blue') != -1 -> true
-
           location.marker.setVisible(result); // show or hide markers result is true or false.   
           clearInfoWins(); // Close all open Info Windows.
-
           return result; // true or false
         });
     }
@@ -209,14 +204,13 @@ var ViewModel = function() {
   // Reference: http://knockoutjs.com/documentation/click-binding.html#note-1-passing-a-current-item-as-a-parameter-to-your-handler-function
   this.clickMarker = function(location) {  // click binding's callback function
 
-    //console.log(location.marker); 
-    var contentString = makeContentString(location);
     location.marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png'); // green vs. blue marker color change, list click vs. map click
+    var contentString = makeContentString(location);
+    infoWindow.setContent(contentString);
     location.infoWindow.open(map,location.marker);
 
   }
 };
-
 
 // In case there is Google Map API Error
 function googleMapApiErrorMessage() {
