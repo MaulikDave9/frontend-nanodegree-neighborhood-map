@@ -206,7 +206,7 @@ var ViewModel = function() {
 
     location.marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png'); // green vs. blue marker color change, list click vs. map click
     var contentString = makeContentString(location);
-    infoWindow.setContent(contentString);
+    location.infoWindow.setContent(contentString);
     location.infoWindow.open(map,location.marker);
 
   }
