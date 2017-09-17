@@ -16,15 +16,17 @@
 
     <div class="container">
       <div class="options-box">
-        <h3> Buffalo Neighborhood </h3>
-        <div>
-          <span class="text">Indian Restaurants </span>
-          <input id="places-search" type="input" data-bind="textInput: selectedLoc" placeholder="Search...", valueUpdate: "afterkeydown" /> 
-          <ul data-bind="foreach: firstMatch">
-            <li data-bind="text: title, click: $root.clickMarker, visible: visible"></li>
-          </ul>
+        <div class="search-box">  
+          <h3> Buffalo Neighborhood </h3>
+          <div>
+            <span class="text">Indian Restaurants </span>
+            <input id="places-search" type="input" data-bind="textInput: selectedLoc" placeholder="Search...", valueUpdate: "afterkeydown" /> 
+            <ul data-bind="foreach: firstMatch">
+              <li data-bind="text: title, click: $root.clickMarker, visible: visible"></li>
+            </ul>
+          </div>
+          <div data-bind="html: thirdPartyAPIInfo"></div>
         </div>
-        <div data-bind="html: thirdPartyAPIInfo"></div>
       </div>
       <div id="map"></div>
     </div>

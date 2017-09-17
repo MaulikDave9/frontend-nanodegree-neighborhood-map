@@ -66,11 +66,11 @@ function getFourSquare(location) {
             
   var base_url = 'https://api.foursquare.com/v2/';
   var endpoint = 'venues/search?';
-  var params = 'll='+ location.location.lat + ',' + location.location.lng; 
-  var key    = '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + '20140626';
+  var params   = 'll='+ location.location.lat + ',' + location.location.lng; 
+  var key      = '&client_id=' + clientID + '&client_secret=' + clientSecret + '&v=' + '20140626';
+  var url      = base_url + endpoint + params + key;
 
-  var url    = base_url + endpoint + params + key;
-
+  // ??? this.venue = ko.observable('');
   $.get(url, function (result) {
     var venues = result.response.venues;
     var venue = venues[0];
@@ -95,7 +95,6 @@ function makeContentString(location) {
   venueStr = getFourSquare(location);
   console.log(venueStr);
 
-   
   return contentString + venueStr;
 
 }
@@ -164,9 +163,9 @@ var ViewModel = function() {
 
   var self = this;
 
-
+  // Question: ??? Does Four Square data comes here?
   this.thirdPartyAPIInfo = ko.observable('<p>third party API info</p>');
-  
+
   // Initially display all the locations (default)
   this.locations = ko.observableArray(locations);
   this.locations().forEach(function(location) {
