@@ -83,8 +83,8 @@ function getFourSquare(location) {
 */
 function makeContentString(location) {
 
-  console.log(location)
-  console.log(location.canonicalUrl)
+  //console.log(location)
+  //console.log(location.canonicalUrl)
 
   var contentString = 
         '<div class="content> <div class="title">'    + location.title + "</div>" +
