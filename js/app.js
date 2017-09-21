@@ -79,8 +79,10 @@ function getFourSquare(location) {
 
 }
 
-/* Venue information and Foursquare data for information window.
-*/
+/* Information Window - location information and foursquare data.
+ * Note: This may not be the best idea to give foursquare link for that place on the infoWindow.  
+ *       If more time, could use foursquare api to place more relevant data on the map.
+ */
 function makeContentString(location) {
 
   //console.log(location)
@@ -98,7 +100,7 @@ function makeContentString(location) {
 
 }
 
-/* Clear infoWindowes.
+/* Close all open infoWindowes
 */
 function clearInfoWins() {
 
@@ -192,7 +194,7 @@ var ViewModel = function() {
     } else {
         return ko.utils.arrayFilter(self.locations(), function(location) {
           var title = location.title.toLowerCase();
-          var result = title.indexOf(search) != -1; // 'Blue Whale'.indexOf('Blue') != -1 -> true
+          var result = title.indexOf(search) != -1; // e.g. 'Blue Whale'.indexOf('Blue') != -1 -> true
           location.marker.setVisible(result); // show or hide markers result is true or false.   
           clearInfoWins(); // Close all open Info Windows.
           return result; // true or false
