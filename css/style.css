@@ -2,30 +2,18 @@ html,
 body {
     font-family: Arial, sans-serif;
     height: 100%;
-    margin: 0;
-    padding: 0;
 }
 
-.options-box {
-    
+#container {
     height: 100%;
     background: #fff;
-    border: 1px solid #999;
-    border-radius: 3px;
-    line-height: 35px;
-    padding: 10px 10px 30px 10px;
-    text-align: left;
-    width: 340px;
-}
-
-.search-box {
-    height: 100%;
-}
-
-
-.container {
-    height: 100%;
     position: relative;
+}
+
+#search-box {
+    height: 100%;
+    background-color: yellow;
+    min-width: 255px;
 }
 
 #places-search {
@@ -35,9 +23,9 @@ body {
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
-    bottom:   0px;
     height:   100%;
-    left:     362px;
     position: absolute;
+    bottom:   0px;
+    left:     362px;
     right:    0px;
 }

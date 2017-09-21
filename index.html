@@ -15,21 +15,20 @@
 
 <body>
 
-    <div class="container">
-      <div class="options-box">
-        <div class="search-box">  
-          <h3> Buffalo Neighborhood </h3>
-          <div>
-            <span class="text">Indian Restaurants </span>
-            <input id="places-search" type="input" data-bind="textInput: selectedLoc" placeholder="Search...", valueUpdate: "afterkeydown" /> 
-            <ul data-bind="foreach: firstMatch">
-              <li data-bind="text: title, click: $root.clickMarker, visible: visible"></li>
-            </ul>
-          </div>
-        </div>
+  <div id="container">
+    <div id="search-box" class="col-md-4">  
+    <h3> Buffalo Neighborhood </h3>
+      <div>
+        <span class="text">Indian Restaurants </span>
+        <input id="places-search" type="input" data-bind="textInput: selectedLoc" placeholder="Search...", valueUpdate: "afterkeydown" /> 
+         <ul data-bind="foreach: firstMatch">
+            <p> <li data-bind="text: title, click: $root.clickMarker, visible: visible"></li> </p>
+         </ul>
       </div>
-      <div id="map"></div>
     </div>
+  </div>
+  
+  <div id="map"></div>
 
   <script src="js/app.js"></script>
   <script async defer
