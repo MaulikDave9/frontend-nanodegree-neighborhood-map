@@ -1,29 +1,28 @@
-html, 
+html,
 body {
     font-family: Arial, sans-serif;
     height: 100%;
 }
 
-#container {
+.container-fluid {
     height: 100%;
     background: #fff;
-    position: relative;
 }
 
-#search-box {
+#mySidenav {
     height: 100%;
     background-color: yellow;
-    min-width: 255px;
 }
 
 #places-search {
-    width: 80%;
+    width: 75%;
 }
 
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
     height:   100%;
+    width: 100%;
     position: absolute;
     bottom:   0px;
     left:     362px;

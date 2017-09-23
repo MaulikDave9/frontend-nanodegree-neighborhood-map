@@ -1,4 +1,4 @@
-// Five Indian restaurants Locations in Buffalo, New York area. 
+// Five Indian restaurants Locations in Buffalo, New York area.
 var locations = [{
     title: 'Namaste Indian Restaurant',
     location: {
@@ -141,7 +141,7 @@ function initMap() {
     // Add marker property to location objects, used when search/filter.
     vm.locations()[index].marker = marker;
   
-    // open info window on click       
+    // open info window on click
     infoWindow = new google.maps.InfoWindow();
 
     google.maps.event.addListener(marker, 'click', function() {

@@ -1,39 +1,35 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Neighborhood Map Project</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
-</head>
+  </head>
 
-<body>
-
-  <div id="container">
-    <div id="search-box" class="col-md-4">  
-    <h3> Buffalo Neighborhood </h3>
-      <div>
-        <span class="text">Indian Restaurants </span>
-        <input id="places-search" type="input" data-bind="textInput: selectedLoc" placeholder="Search...", valueUpdate: "afterkeydown" /> 
-         <ul data-bind="foreach: firstMatch">
-            <p> <li data-bind="text: title, click: $root.clickMarker, visible: visible"></li> </p>
-         </ul>
+  <body>
+    <div class = "container-fluid">
+      <div id="mySidenav" class="col-md-4">
+        <h3> Buffalo Neighborhood </h3>
+        <div>
+            <span class="text">Indian Restaurants </span>
+            <input id="places-search" type="input" data-bind="textInput: selectedLoc" placeholder="Search...", valueUpdate: "afterkeydown" />
+            <ul data-bind="foreach: firstMatch">
+              <p> <li data-bind="text: title, click: $root.clickMarker, visible: visible"></li> </p>
+            </ul>
+        </div>
       </div>
+      <div id="map" class="col-md-8"></div>
     </div>
-  </div>
-  
-  <div id="map"></div>
 
-  <script src="js/app.js"></script>
-  <script async defer
+    <script src="js/app.js"></script>
+    <script async defer
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO2Ae0_6-qmEBdy9o2lz0mdMsB45tf5vY&callback=initMap" async defer onerror="googleMapApiErrorMessage();">
-  </script> 
-
-</body>
+    </script>
+  </body>
 </html>
