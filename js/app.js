@@ -199,7 +199,7 @@ var ViewModel = function() {
     location.infoWindow.setContent(contentString);
     location.infoWindow.open(map,location.marker);
 
-  }
+  };
 };
 
 // In case there is Google Map API Error
