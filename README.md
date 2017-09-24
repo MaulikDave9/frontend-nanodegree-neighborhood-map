@@ -6,10 +6,10 @@ Subsequently, searching for any of these restaurants(only from that list), will 
 
 ### Setting Up ###
 * Clone the Repository: https://github.com/MaulikDave9/frontend-nanodegree-neighborhood-map
-* Extract all the files 
-* click on index.html to open the application.
+* Or download all the files from the repository from the above link
+* Click on index.html to open the application.
 
-### Or Use the Link (hosted on github): https://maulikdave9.github.io/frontend-nanodegree-neighborhood-map/ ###
+### Alternatively click on this link (hosted on github): https://maulikdave9.github.io/frontend-nanodegree-neighborhood-map/ ###
 
 #### References: ####
 1. https://developers.google.com/maps/ 
