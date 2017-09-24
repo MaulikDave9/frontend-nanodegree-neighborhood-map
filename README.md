@@ -4,7 +4,12 @@ Upong loading the app page as per Link below, will show 5 Restaurants on map,
 clicking on any of the marker will give more information for that restaurant.
 Subsequently, searching for any of these restaurants(only from that list), will only display marker for that restaurant.  
 
-### Link: https://maulikdave9.github.io/frontend-nanodegree-neighborhood-map/ ###
+### Setting Up ###
+* Clone the Repository: https://github.com/MaulikDave9/frontend-nanodegree-neighborhood-map
+* Extract all the files 
+* click on index.html to open the application.
+
+### Or Use the Link (hosted on github): https://maulikdave9.github.io/frontend-nanodegree-neighborhood-map/ ###
 
 #### References: ####
 1. https://developers.google.com/maps/ 
