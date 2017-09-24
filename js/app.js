@@ -62,6 +62,8 @@ function initMap() {
     zoom: 10
   });
 
+  infoWindow = new google.maps.InfoWindow();
+
   // create map markers and add the map markers to the location objects
   // Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
   locations.forEach(function(location, index) {
@@ -76,7 +78,6 @@ function initMap() {
     getFourSquare(location);
 
     vm.locations()[index].marker = marker;
-    infoWindow = new google.maps.InfoWindow();
     google.maps.event.addListener(marker, "click", function() {
 
       marker.setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
