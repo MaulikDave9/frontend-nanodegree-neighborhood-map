@@ -14,6 +14,11 @@ body {
     background-color: yellow;
 }
 
+.footerLogo {
+    Width: 220px;
+    padding-top: 7px;
+}
+
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
