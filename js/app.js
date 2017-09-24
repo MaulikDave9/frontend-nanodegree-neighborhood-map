@@ -80,10 +80,16 @@ function initMap() {
     vm.locations()[index].marker = marker;
     google.maps.event.addListener(marker, "click", function() {
 
-      marker.setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
+      //marker.setIcon("http://maps.google.com/mapfiles/ms/icons/green-dot.png");
       var contentString = makeContentString(location);
       infoWindow.setContent(contentString);
       infoWindow.open(map,marker);
+
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(function() {
+        location.marker.setAnimation(null)
+      }, 1000);
+
 
     });
     // Add infoWindow property to location objects, used when search/filter.
@@ -140,10 +146,15 @@ var ViewModel = function() {
   // Reference: http://knockoutjs.com/documentation/click-binding.html#note-1-passing-a-current-item-as-a-parameter-to-your-handler-function
   this.clickMarker = function(location) {  // click binding's callback function
 
-    location.marker.setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png"); // green vs. blue marker color change, list click vs. map click
+    //location.marker.setIcon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png"); // green vs. blue marker color change, list click vs. map click
     var contentString = makeContentString(location);
     location.infoWindow.setContent(contentString);
     location.infoWindow.open(map,location.marker);
+    location.marker.setAnimation(google.maps.Animation.BOUNCE);
+
+    setTimeout(function() {
+      location.marker.setAnimation(null)
+    }, 1000);
 
   };
 };
