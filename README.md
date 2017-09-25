@@ -21,3 +21,4 @@ Subsequently, searching for any of these restaurants(only from that list), will 
 7. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
 8. https://developer.foursquare.com/docs/venues/search
 9. http://jsfiddle.net/rover/PbLXN/
+10. https://stackoverflow.com/questions/14657779/google-maps-bounce-animation-on-marker-for-a-limited-period
