@@ -87,7 +87,7 @@ function initMap() {
 
       marker.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(function() {
-        location.marker.setAnimation(null)
+        location.marker.setAnimation(null);
       }, 1000);
 
 
@@ -153,7 +153,7 @@ var ViewModel = function() {
     location.marker.setAnimation(google.maps.Animation.BOUNCE);
 
     setTimeout(function() {
-      location.marker.setAnimation(null)
+      location.marker.setAnimation(null);
     }, 1000);
 
   };
